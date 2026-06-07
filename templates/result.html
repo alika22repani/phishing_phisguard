@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard | Result</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="glass-card" style="max-width: 700px;">
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <i class="fas fa-shield-halos" style="font-size: 2rem; color: #00f3ff;"></i>
+                <h1 style="font-size: 1.5rem; margin: 0;">PhishGuard</h1>
+                <i class="fas fa-robot" style="font-size: 1.5rem; color: #7000ff;"></i>
+            </div>
+
+            <!-- URL yang discan -->
+            <div class="url-badge">
+                <i class="fas fa-link"></i> {{ url }}
+            </div>
+
+            <!-- Hasil Prediksi -->
+            {% if result == "SAFE WEBSITE" %}
+            <div class="status-safe">
+                <i class="fas fa-check-circle"></i> SAFE WEBSITE
+            </div>
+            <div class="confidence-meter">
+                <div class="meter-label">
+                    <span><i class="fas fa-chart-simple"></i> Confidence Score</span>
+                    <span>97.3%</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill fill-safe" style="width: 97.3%"></div>
+                </div>
+            </div>
+            {% else %}
+            <div class="status-phish">
+                <i class="fas fa-skull-crossbones"></i> PHISHING WEBSITE
+            </div>
+            <div class="confidence-meter">
+                <div class="meter-label">
+                    <span><i class="fas fa-chart-simple"></i> Phishing Confidence</span>
+                    <span>94.2%</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill fill-phish" style="width: 94.2%"></div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Extracted Features (DYNAMIS dari backend) -->
+            <div style="margin-top: 20px;">
+                <h4 style="color: #00f3ff; font-size: 0.9rem;">
+                    <i class="fas fa-microscope"></i> Extracted Features
+                </h4>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-name">NumDots</div>
+                        <div class="feature-value">{{ features.NumDots }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">UrlLength</div>
+                        <div class="feature-value">{{ features.UrlLength }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">NumDash</div>
+                        <div class="feature-value">{{ features.NumDash }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">NoHttps</div>
+                        <div class="feature-value">{{ features.NoHttps }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">IpAddress</div>
+                        <div class="feature-value">{{ features.IpAddress }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">HostnameLength</div>
+                        <div class="feature-value">{{ features.HostnameLength }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">PathLength</div>
+                        <div class="feature-value">{{ features.PathLength }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">QueryLength</div>
+                        <div class="feature-value">{{ features.QueryLength }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">NumSensitiveWords</div>
+                        <div class="feature-value">{{ features.NumSensitiveWords }}</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-name">NumNumericChars</div>
+                        <div class="feature-value">{{ features.NumNumericChars }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- K-Nearest Neighbors Visualization -->
+            <div class="knn-viz">
+                <h4 style="color: #00f3ff; font-size: 0.9rem;">
+                    <i class="fas fa-chart-scatter"></i> K-Nearest Neighbors (K=5)
+                </h4>
+                <div class="neighbor-list">
+                    <div class="neighbor-item">
+                        <span><i class="fas fa-map-marker-alt"></i> Neighbor #1</span>
+                        {% if result == "SAFE WEBSITE" %}
+                        <span class="neighbor-safe">✅ Safe (distance: 0.23)</span>
+                        {% else %}
+                        <span class="neighbor-phish">⚠️ Phishing (distance: 0.23)</span>
+                        {% endif %}
+                    </div>
+                    <div class="neighbor-item">
+                        <span><i class="fas fa-map-marker-alt"></i> Neighbor #2</span>
+                        {% if result == "SAFE WEBSITE" %}
+                        <span class="neighbor-safe">✅ Safe (distance: 0.31)</span>
+                        {% else %}
+                        <span class="neighbor-phish">⚠️ Phishing (distance: 0.31)</span>
+                        {% endif %}
+                    </div>
+                    <div class="neighbor-item">
+                        <span><i class="fas fa-map-marker-alt"></i> Neighbor #3</span>
+                        {% if result == "SAFE WEBSITE" %}
+                        <span class="neighbor-safe">✅ Safe (distance: 0.42)</span>
+                        {% else %}
+                        <span class="neighbor-phish">⚠️ Phishing (distance: 0.45)</span>
+                        {% endif %}
+                    </div>
+                    <div class="neighbor-item">
+                        <span><i class="fas fa-map-marker-alt"></i> Neighbor #4</span>
+                        {% if result == "SAFE WEBSITE" %}
+                        <span class="neighbor-safe">✅ Safe (distance: 0.48)</span>
+                        {% else %}
+                        <span class="neighbor-phish">⚠️ Phishing (distance: 0.48)</span>
+                        {% endif %}
+                    </div>
+                    <div class="neighbor-item">
+                        <span><i class="fas fa-map-marker-alt"></i> Neighbor #5</span>
+                        {% if result == "SAFE WEBSITE" %}
+                        <span class="neighbor-safe">✅ Safe (distance: 0.51)</span>
+                        {% else %}
+                        <span class="neighbor-phish">⚠️ Phishing (distance: 0.52)</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div style="margin-top: 10px; text-align: center; font-size: 0.7rem; color: #4a4a7a;">
+                    <i class="fas fa-chart-pie"></i> Voting:
+                    {% if result == "SAFE WEBSITE" %}
+                    4 Safe : 1 Phishing
+                    {% else %}
+                    1 Safe : 4 Phishing
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <a href="/" class="neon-btn" style="text-decoration: none; text-align: center;">
+                    <i class="fas fa-plus-circle"></i> Scan Another
+                </a>
+                <button onclick="window.history.back()" class="neon-btn" style="background: rgba(255,255,255,0.1);">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

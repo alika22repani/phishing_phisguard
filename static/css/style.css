@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at 20% 50%, #0a0a1a, #05050f);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated background particles */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Floating neon orbs */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 40%, rgba(0, 243, 255, 0.15), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.15), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Glassmorphism Card - Premium */
+.glass-card {
+    background: rgba(10, 10, 26, 0.65);
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow:
+        0 0 40px rgba(0, 243, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 550px;
+    padding: 40px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 60px rgba(0, 243, 255, 0.2);
+}
+
+/* Title dengan gradient */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00f3ff, #7000ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #8b8bc7;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+/* Neon Input */
+.neon-input {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.neon-input:focus {
+    outline: none;
+    border-color: #00f3ff;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.neon-input::placeholder {
+    color: rgba(139, 139, 199, 0.5);
+}
+
+/* Neon Button - Glowing */
+.neon-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(90deg, #00f3ff, #7000ff);
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.neon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+}
+
+.neon-btn:active {
+    transform: translateY(1px);
+}
+
+/* Scanning animation */
+.scanning {
+    position: relative;
+    overflow: hidden;
+}
+
+.scanning::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(0, 243, 255, 0.3) 50%,
+            transparent 70%);
+    animation: scan 1.5s infinite;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Result Card */
+.result-card {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 24px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+.url-badge {
+    background: rgba(0, 243, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    word-break: break-all;
+    font-family: monospace;
+    margin-bottom: 20px;
+}
+
+/* Status dengan efek glow */
+.status-safe {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00ff88;
+    text-shadow: 0 0 20px #00ff88;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.status-phish {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff0055;
+    text-shadow: 0 0 20px #ff0055;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Confidence meter */
+.confidence-meter {
+    margin: 20px 0;
+}
+
+.meter-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #8b8bc7;
+}
+
+.meter-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+.fill-safe {
+    background: linear-gradient(90deg, #00ff88, #00cc66);
+    box-shadow: 0 0 10px #00ff88;
+}
+
+.fill-phish {
+    background: linear-gradient(90deg, #ff0055, #cc0044);
+    box-shadow: 0 0 10px #ff0055;
+}
+
+/* Feature grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.feature-item {
+    background: rgba(0, 243, 255, 0.05);
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.feature-name {
+    color: #8b8bc7;
+    font-size: 0.7rem;
+}
+
+.feature-value {
+    font-weight: 600;
+    color: #00f3ff;
+}
+
+/* KNN Visualization */
+.knn-viz {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+}
+
+.neighbor-list {
+    margin-top: 10px;
+}
+
+.neighbor-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    font-size: 0.8rem;
+}
+
+.neighbor-safe {
+    color: #00ff88;
+}
+
+.neighbor-phish {
+    color: #ff0055;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .glass-card {
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .status-safe,
+    .status-phish {
+        font-size: 1.5rem;
+    }
+}
