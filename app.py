@@ -4,8 +4,9 @@ from feature_extractor import extract_features
 
 app = Flask(__name__)
 
-# Load model
+# Load model dan scaler
 model = joblib.load("model/knn_model.pkl")
+scaler = joblib.load("model/scaler.pkl")
 
 @app.route("/")
 def home():
@@ -15,11 +16,15 @@ def home():
 def predict():
     url = request.form["url"]
     features = extract_features(url)
+    features_scaled = scaler.transform(features)
     
-    prediction = model.predict(features)[0]
+    print("RAW features:", features)
+    print("SCALED features:", features_scaled)
+    print("Prediction:", model.predict(features_scaled)[0])
+    
+    prediction = model.predict(features_scaled)[0]
     result = "SAFE WEBSITE" if prediction == 0 else "PHISHING WEBSITE"
     
-    # Buat dictionary fitur
     feature_names = ['NumDots', 'UrlLength', 'NumDash', 'NoHttps', 'IpAddress', 
                      'HostnameLength', 'PathLength', 'QueryLength', 
                      'NumSensitiveWords', 'NumNumericChars']
